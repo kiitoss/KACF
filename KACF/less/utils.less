@@ -1,0 +1,10 @@
+.transition(@delay) {
+    transition: all @delay ease-in-out !important;
+    -webkit-transition: all @delay ease-in-out !important;
+    -moz-transition: all @delay ease-in-out !important;
+    -o-transition: all @delay ease-in-out !important;
+}
+
+.letter-spacing(@font-size, @letter-tracking) {
+    letter-spacing: @font-size * @letter-tracking / 1000 + px;
+}
