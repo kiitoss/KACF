@@ -2,7 +2,11 @@
 /*
  * name: banner
  * title: Bannière
- * keywords: banner, bannière
+ ** icon: admin-site
+ ** keywords: banner, bannière
+ ** post_types:
+ ** description:
+ ** category:
  */
 ?>
 

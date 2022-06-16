@@ -25,7 +25,9 @@ function kiitoss_get_acf_block_comment_data($file_path)
             'title' => 'title',
             'icon' => 'icon',
             'keywords' => 'keywords',
-            'post_types' => 'post_types'
+            'post_types' => 'post_types',
+            'description' => 'description',
+            'category' => 'category',
         )
     );
 
@@ -65,6 +67,8 @@ function kiitoss_register_acf_block($data, $relative_path)
     acf_register_block_type(array(
         'name'              => $data['name'],
         'title'             => __($data['title'], 'kiitoss'),
+        'description'       => $data['description'],
+        'category'          => $data['category'],
         'render_template'   => $data['render_template'],
         'icon'              => $data['icon'],
         'keywords'          => $data['keywords'],

@@ -2,7 +2,11 @@
 /*
  * name: articles
  * title: Article
- * keywords: article, blog
+ ** icon:
+ ** keywords: article, blog
+ ** post_types:
+ ** description:
+ ** category:
  */
 ?>
 
