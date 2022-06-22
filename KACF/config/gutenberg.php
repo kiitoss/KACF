@@ -1,7 +1,7 @@
 <?php
 
 // define theme version
-define('KIITOSSv', time());
+define('KACFv', time());
 
 // define gutenberg repesitory paths
 define('TPL', get_template_directory() . '/gutenberg/');
@@ -15,7 +15,7 @@ $ALLOWED_BLOCKS = array();
  * Get the ACF block data from the PHP file
  * The data can be found in the header of the template file
  */
-function kiitoss_get_acf_block_comment_data($file_path)
+function kacf_get_acf_block_comment_data($file_path)
 {
     // use the wordpress built-in function get_file_data
     $data = get_file_data(
@@ -59,14 +59,14 @@ function kiitoss_get_acf_block_comment_data($file_path)
 /**
  * Register a new ACF block
  */
-function kiitoss_register_acf_block($data, $relative_path)
+function kacf_register_acf_block($data, $relative_path)
 {
     global $ALLOWED_BLOCKS;
 
     // register the block with its data
     acf_register_block_type(array(
         'name'              => $data['name'],
-        'title'             => __($data['title'], 'kiitoss'),
+        'title'             => __($data['title'], 'kacf'),
         'description'       => $data['description'],
         'category'          => $data['category'],
         'render_template'   => $data['render_template'],
@@ -92,7 +92,7 @@ function kiitoss_register_acf_block($data, $relative_path)
 /**
  * Register new ACF blocks directly took from the folder
  */
-function kiitoss_register_acf_blocks()
+function kacf_register_acf_blocks()
 {
     // check the possibility to add new blocks
     if (!function_exists('acf_register_block_type')) return;
@@ -106,7 +106,7 @@ function kiitoss_register_acf_blocks()
         $file_path = $dir . '/template.php';
 
         // retrieve the data in the header comments of the file
-        $data = kiitoss_get_acf_block_comment_data($file_path);
+        $data = kacf_get_acf_block_comment_data($file_path);
 
         // abort if data is missing
         if (!$data) continue;
@@ -116,18 +116,18 @@ function kiitoss_register_acf_blocks()
         $relative_path = implode('', explode(TPL, $dir));
 
         // register the new acf block
-        kiitoss_register_acf_block($data, $relative_path);
+        kacf_register_acf_block($data, $relative_path);
     }
 }
-add_action('acf/init', 'kiitoss_register_acf_blocks');
+add_action('acf/init', 'kacf_register_acf_blocks');
 
 
 /**
  * Update the WordPress allowed blocks
  */
-function kiitoss_allowed_block_types()
+function kacf_allowed_block_types()
 {
     global $ALLOWED_BLOCKS;
     return $ALLOWED_BLOCKS;
 }
-add_filter('allowed_block_types', 'kiitoss_allowed_block_types');
+add_filter('allowed_block_types', 'kacf_allowed_block_types');
