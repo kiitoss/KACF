@@ -3,7 +3,7 @@
  * name: shortcode
  * title: Code court
  ** icon: shortcode
- ** keywords: code court, shortcode
+ ** keywords: 
  ** post_types:
  ** description:
  ** category: idcom

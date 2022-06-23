@@ -2,7 +2,8 @@
 
 function kacf_gallery_scripts()
 {
-  wp_enqueue_script('kacf-gallery', get_template_directory_uri() . '/js/gallery.js', array('jquery'), 1.1, true);
+  wp_enqueue_script('kacf-gallery', get_template_directory_uri() . '/gallery/js/main.js', array('jquery'), 1.1, true);
+  wp_enqueue_style('kacf-gallery-2', get_template_directory_uri() . '/gallery/less/index.php');
 }
 add_action('wp_enqueue_scripts', 'kacf_gallery_scripts');
 
@@ -39,11 +40,17 @@ function kacf_gallery()
           $classes .= ' kacf-filter-' . $keyword;
         }
 
-        echo '<div class="' . $classes . '">';
+        $reference = $keywords[0];
+
+        echo '<div data-reference="' . $reference . '" class="' . $classes . '">';
         echo render_block($block);
         echo '</div>';
       }
     }
   }
+
+  echo '
+  <span id="kacf-popover"></span>
+  ';
 }
 add_action('the_content', 'kacf_gallery', 15);

@@ -1,7 +1,8 @@
 <?php
 
 include dirname(__FILE__) . "/config/gutenberg.php";
-include dirname(__FILE__) . "/config/gallery.php";
+
+include dirname(__FILE__) . "/gallery/gallery.php";
 
 /**
  * Load the site styles and scripts

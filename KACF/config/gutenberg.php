@@ -115,6 +115,9 @@ function kacf_register_acf_blocks()
         // necessary to enqueue styles and scripts
         $relative_path = implode('', explode(TPL, $dir));
 
+        // set the folder name as the first keyword
+        array_unshift($data['keywords'], $relative_path);
+
         // register the new acf block
         kacf_register_acf_block($data, $relative_path);
     }

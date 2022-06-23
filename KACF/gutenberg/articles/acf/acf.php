@@ -24,6 +24,25 @@ if (function_exists('acf_add_local_field_group')) :
                 'append' => '',
                 'maxlength' => '',
             ),
+            array(
+                'key' => 'field_62b360759916e',
+                'label' => 'Sous-titre',
+                'name' => 'BCD',
+                'type' => 'text',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ),
+                'default_value' => '',
+                'placeholder' => '',
+                'prepend' => '',
+                'append' => '',
+                'maxlength' => '',
+            ),
         ),
         'location' => array(
             array(
@@ -42,6 +61,11 @@ if (function_exists('acf_add_local_field_group')) :
         'hide_on_screen' => '',
         'active' => true,
         'description' => '',
+        'acfe_display_title' => '',
+        'acfe_autosync' => '',
+        'acfe_form' => 0,
+        'acfe_meta' => '',
+        'acfe_note' => '',
     ));
 
 endif;
