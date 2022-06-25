@@ -6,8 +6,42 @@ class kacf
     private $allowed_blocks = array();
     private $tpl = '';
     private $tpluri = '';
+    private static $instance;
 
-    public function __construct($gutpath = null)
+    public function __construct($gutpath = '/gutenberg/', $autorun = true)
+    {
+        // check the environment validity
+        $this->check_environmment_validity();
+
+        // define gutenberg repesitory paths
+        $this->tpl = get_template_directory() . $gutpath;
+        $this->tpluri = get_template_directory_uri() . $gutpath;
+
+        // set up action hooks if autorun
+        if ($autorun) $this->autorun();
+
+        // set the KACF instance
+        kacf::$instance = $this;
+    }
+
+    /**
+     * Set up action hooks
+     */
+    private function autorun()
+    {
+        // check the environment validity
+        $this->check_environmment_validity();
+
+        // register blocks
+        add_action('acf/init', array($this, 'register_acf_blocks'));
+        // set up allowed block type
+        add_filter('allowed_block_types_all', array($this, 'get_registered_blocks'));
+    }
+
+    /**
+     * Check WP and ACF existence
+     */
+    private function check_environmment_validity()
     {
         // exit if the class is not load in a WP environement
         if (!class_exists('WP')) {
@@ -19,12 +53,23 @@ class kacf
             trigger_error("You must use ACF to use the KACF class.", E_USER_ERROR);
             die();
         }
-
-        // define gutenberg repesitory paths
-        $this->tpl = get_template_directory() . $gutpath;
-        $this->tpluri = get_template_directory_uri() . $gutpath;
     }
 
+    /**
+     * Return the instance of the KACF class
+     */
+    public static function getInstance()
+    {
+        if (!kacf::$instance instanceof self) {
+            kacf::$instance = new self();
+        }
+        return kacf::$instance;
+    }
+
+
+    /**
+     * Return the list of registered blocks
+     */
     public function get_registered_blocks()
     {
         return $this->allowed_blocks;
@@ -105,6 +150,9 @@ class kacf
      */
     public function register_acf_blocks()
     {
+        // check the environment validity
+        $this->check_environmment_validity();
+
         // check the possibility to add new blocks
         if (!function_exists('acf_register_block_type')) return;
 

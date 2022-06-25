@@ -8,9 +8,4 @@
   <?php the_content() ?>
 </div>
 
-
-<script type="text/javascript">
-
-</script>
-
 <?php get_footer() ?>
