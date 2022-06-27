@@ -181,8 +181,8 @@ class kacf
             // generate the name of the block with the folder name
             $data['name'] = preg_replace('/[^a-z0-9\-\_]/', '', str_replace(' ', '-', strtolower($relative_path)));
 
-            // set the block title if not exists
-            if (!$data['title']) $data['title'] = __($data['name'], 'kacf');
+            // continue if no block title
+            if (!$data['title']) continue;
 
             // set the folder name as the first keyword
             array_unshift($data['keywords'], $data['name']);
