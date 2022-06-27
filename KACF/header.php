@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> <!-- html -->
 <html <?php language_attributes() ?> xmlns:fb="http://ogp.me/ns/fb#">
 
 <head>
@@ -13,7 +13,9 @@
 </head> <!-- head -->
 
 <body <?php body_class(); ?>>
+  <!-- body -->
   <header>
   </header> <!-- header -->
 
   <main role="main" id="main">
+    <!-- main -->

@@ -58,6 +58,8 @@ foreach ($pages as $page) {
         // create class for the wrapper div
         $classes = 'kacf-filter';
 
+        if (!$keywords) continue;
+
         // update class with keywords to filter wrappers
         foreach ($keywords as $keyword) {
             if (!$keyword) continue;
@@ -83,7 +85,7 @@ foreach ($pages as $page) {
 
     <span class="kacf-popover"></span>
 
-    <p class="kacf-result-count"><?php _e('Nombre de blocs : ', 'idcom') ?><span class="kacf-result-count__count"><?php echo count($gallery_blocks) ?></span></p>
+    <p class="kacf-result-count"><?php _e('Nombre de blocs : ', 'kacf') ?><span class="kacf-result-count__count"><?php echo count($gallery_blocks) ?></span></p>
     <div class="kacf-block-gallery">
         <?php foreach ($gallery_blocks as $gallery_block) : ?>
             <div data-reference="<?php echo $gallery_block['reference'] ?>" class="<?php echo $gallery_block['classes'] ?>">
