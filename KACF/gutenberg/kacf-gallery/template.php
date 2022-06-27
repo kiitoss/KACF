@@ -14,7 +14,7 @@
 $current_page_id = get_the_ID();
 
 // retrieve the current acf block name
-$current_acf_block_name = parse_blocks(get_the_content())[0]['attrs']['name'];
+$current_acf_block_name = $block['name'] ?? 'acf/kacf-gallery';
 
 // get all pages
 $pages = get_pages();
@@ -78,20 +78,17 @@ foreach ($pages as $page) {
 
 ?>
 
-<h2>Gallerie de blocks</h2>
+<section class="kacf-gallery">
+    <input placeholder="<?php _e('Saisissez du texte pour trouver un bloc...', 'kacf') ?>" class="kacf-gallery__input" type="text" onkeyup="handleGalleryInputChange(this)" />
 
-<input type="text" onkeyup="handleGalleryInputChange(this)" />
+    <span class="kacf-popover"></span>
 
-<div id="block-gallery">
-    <h3>Début de la gallerie des blocks</h3>
-    <?php foreach ($gallery_blocks as $gallery_block) : ?>
-        <div data-reference="<?php echo $gallery_block['reference'] ?>" class="<?php echo $gallery_block['classes'] ?>">
-            <?php echo render_block($gallery_block['content']); ?>
-        </div>
-    <?php endforeach; ?>
-    <h3>Fin de la gallerie des blocks</h3>
-</div>
-
-<?php
-// create the block popover information
-echo '<span class="kacf-popover"></span>';
+    <p class="kacf-result-count"><?php _e('Nombre de blocs : ', 'idcom') ?><span class="kacf-result-count__count"><?php echo count($gallery_blocks) ?></span></p>
+    <div class="kacf-block-gallery">
+        <?php foreach ($gallery_blocks as $gallery_block) : ?>
+            <div data-reference="<?php echo $gallery_block['reference'] ?>" class="<?php echo $gallery_block['classes'] ?>">
+                <?php echo render_block($gallery_block['content']); ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</section>

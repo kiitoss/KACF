@@ -1,6 +1,54 @@
 @import '/../../../less/globals';
 
-.kacf-popover {
+.kacf-gallery {
+  margin-top: 80px;
+  margin-bottom: 80px;
+  &__input {
+    margin: auto;
+    display: block;
+    width: 600px;
+    max-width: 90%;
+    border-radius: 0;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+    border-color: rgba(0, 0, 0, 0.2);
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 30px;
+    padding: 15px;
+    &:hover,
+    &:focus {
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+        rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+      border-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .kacf-result-count {
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .kacf-block-gallery {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+      rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    .kacf-filter {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      opacity: 0.7;
+      .transition(0.2s);
+      &:hover {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        cursor: pointer;
+        opacity: 1;
+      }
+    }
+  }
+
+  .kacf-popover {
     background-color: #fff;
     color: #000;
     font-size: 1.5em;
@@ -11,19 +59,12 @@
     z-index: 9999999999;
     border-radius: 10px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-        rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+      rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     transition: opacity 0.3s ease-in-out;
     &.active {
-        opacity: 1;
+      opacity: 1;
     }
-}
-
-.kacf-filter {
-    .transition(0.2s);
-    &:hover {
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        cursor: pointer;
-    }
+  }
 }
 
 @media (max-width: 1900px) {
