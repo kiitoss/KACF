@@ -6,19 +6,26 @@ class kacf
     private $allowed_blocks = array();
     private $tpl = '';
     private $tpluri = '';
+    private $relative_paths = array();
     private static $instance;
-
-    public function __construct($gutpath = '/gutenberg/', $autorun = true)
+    public function __construct($gutpath = '/gutenberg/', $add_hooks = true, $relative_paths = array('php' => 'template.php', 'css' => 'less/index.php', 'js' => 'js/script.js', 'acf' => 'acf/acf.php'))
     {
         // check the environment validity
         $this->check_environmment_validity();
 
-        // define gutenberg repesitory paths
+        // define gutenberg repository paths
         $this->tpl = get_template_directory() . $gutpath;
         $this->tpluri = get_template_directory_uri() . $gutpath;
 
-        // set up action hooks if autorun
-        if ($autorun) $this->autorun();
+        // set up php / css / js / acf relative paths
+        if (!$relative_paths['php']) $relative_paths['php'] = 'template.php';
+        if (!$relative_paths['css']) $relative_paths['css'] = 'less/index.php';
+        if (!$relative_paths['js']) $relative_paths['js'] = 'js/script.js';
+        if (!$relative_paths['acf']) $relative_paths['acf'] = 'acf/acf.php';
+        $this->relative_paths = $relative_paths;
+
+        // set up action hooks if add_hooks
+        if ($add_hooks) $this->add_hooks();
 
         // set the KACF instance
         kacf::$instance = $this;
@@ -27,7 +34,7 @@ class kacf
     /**
      * Set up action hooks
      */
-    private function autorun()
+    private function add_hooks()
     {
         // check the environment validity
         $this->check_environmment_validity();
@@ -131,12 +138,12 @@ class kacf
             'keywords'          => $data['keywords'],
             'post_types'        => $data['post_types'],
             'mode'              => 'edit',
-            'enqueue_style' => $this->tpluri . $relative_path . '/less/index.php',
-            'enqueue_script' => $this->tpluri . $relative_path . '/js/script.js',
+            'enqueue_style' => $this->tpluri . $relative_path . '/' . $this->relative_paths['css'],
+            'enqueue_script' => $this->tpluri . $relative_path . '/' . $this->relative_paths['js'],
         ));
 
         // load the ACF field generator if exists
-        $acf_php_file_path = $this->tpl . $relative_path . '/acf/acf.php';
+        $acf_php_file_path = $this->tpl . $relative_path . '/' . $this->relative_paths['acf'];
         if (file_exists($acf_php_file_path) && filesize($acf_php_file_path)) {
             include $acf_php_file_path;
         }
@@ -162,7 +169,7 @@ class kacf
         // loop through these directories
         foreach ($dirs as $dir) {
             // get the file path
-            $file_path = $dir . '/template.php';
+            $file_path = $dir . '/' . $this->relative_paths['php'];
 
             // retrieve the data in the header comments of the file
             $data = $this->get_acf_block_comment_data($file_path);

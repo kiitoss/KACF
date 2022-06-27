@@ -1,10 +1,7 @@
 <?php
 
 require dirname(__FILE__) . '/lib/kacf/kacf.inc.php';
-
-include dirname(__FILE__) . "/gallery/gallery.php";
-
-new kacf('/gutenberg/', true);
+new kacf();
 
 /**
  * Load the site styles and scripts

@@ -1,6 +1,5 @@
 <?php
 /*
- * name: banner
  * title: Bannière
  ** icon: admin-site
  ** keywords: banner, bannière

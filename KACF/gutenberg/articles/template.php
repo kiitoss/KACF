@@ -1,6 +1,5 @@
 <?php
 /*
- * name: articles
  * title: Article
  ** icon:
  ** keywords: article, blog

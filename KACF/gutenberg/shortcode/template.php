@@ -1,12 +1,11 @@
 <?php
 /*
- * name: shortcode
  * title: Code court
  ** icon: shortcode
  ** keywords: 
  ** post_types:
  ** description:
- ** category: idcom
+ ** category: 
  */
 ?>
 
