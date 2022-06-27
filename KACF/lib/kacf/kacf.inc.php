@@ -8,7 +8,7 @@ class kacf
     private $tpluri = '';
     private $relative_paths = array();
     private static $instance;
-    public function __construct($gutpath = '/gutenberg/', $add_hooks = true, $relative_paths = array('php' => 'template.php', 'css' => 'less/index.php', 'js' => 'js/script.js', 'acf' => 'acf/acf.php'))
+    public function __construct($gutpath = '/gutenberg/', $add_hooks = true, $relative_paths = array('php' => 'template.php', 'css' => 'less/index.php', 'js' => 'js/script.js', 'acf' => 'acf/acf.php'), $unregister_default_blocks = true)
     {
         // check the environment validity
         $this->check_environmment_validity();
@@ -27,8 +27,25 @@ class kacf
         // set up action hooks if add_hooks
         if ($add_hooks) $this->add_hooks();
 
+        // unregister default gutenberg blocks
+        if ($unregister_default_blocks) $this->unregister_default_blocks();
+
         // set the KACF instance
         kacf::$instance = $this;
+    }
+
+    /**
+     * Unregister default gutenberg block library
+     */
+    private function unregister_default_blocks()
+    {
+        // unregister default blocks
+        add_action('wp_enqueue_scripts', function () {
+            wp_dequeue_style('wp-block-library'); // wordpress core
+            wp_dequeue_style('wp-block-library-theme'); // wordpress core
+            wp_dequeue_style('wc-block-style'); // wooCommerce
+            wp_dequeue_style('storefront-gutenberg-blocks'); // storefront theme
+        }, 100);
     }
 
     /**
