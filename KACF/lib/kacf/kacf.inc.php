@@ -11,7 +11,7 @@ class kacf
     public function __construct($gutpath = '/gutenberg/', $add_hooks = true, $relative_paths = array('php' => 'template.php', 'css' => 'less/index.php', 'js' => 'js/script.js', 'acf' => 'acf/acf.php'), $unregister_default_blocks = true)
     {
         // check the environment validity
-        $this->check_environmment_validity();
+        if (!$this->is_environmment_valid()) return;
 
         // define gutenberg repository paths
         $this->tpl = get_template_directory() . $gutpath;
@@ -54,7 +54,7 @@ class kacf
     private function add_hooks()
     {
         // check the environment validity
-        $this->check_environmment_validity();
+        if (!$this->is_environmment_valid()) return;
 
         // register blocks
         add_action('acf/init', array($this, 'register_acf_blocks'));
@@ -65,18 +65,21 @@ class kacf
     /**
      * Check WP and ACF existence
      */
-    private function check_environmment_validity()
+    private function is_environmment_valid()
     {
         // exit if the class is not load in a WP environement
         if (!class_exists('WP')) {
-            trigger_error("You must use WordPress to use the KACF class.", E_USER_ERROR);
-            die();
+            error_reporting(E_USER_WARNING);
+            trigger_error("You must use WordPress to use the KACF class.", E_USER_WARNING);
+            return false;
         }
         // exit if the class is not load in an ACF environement
         if (!class_exists('ACF')) {
-            trigger_error("You must use ACF to use the KACF class.", E_USER_ERROR);
-            die();
+            error_reporting(E_USER_WARNING);
+            trigger_error("You must use ACF to use the KACF class.", E_USER_WARNING);
+            return false;
         }
+        return true;
     }
 
     /**
@@ -175,7 +178,7 @@ class kacf
     public function register_acf_blocks()
     {
         // check the environment validity
-        $this->check_environmment_validity();
+        if (!$this->is_environmment_valid()) return;
 
         // check the possibility to add new blocks
         if (!function_exists('acf_register_block_type')) return;
