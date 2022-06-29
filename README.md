@@ -10,7 +10,7 @@ The other elements are examples and the basics of the theme.
 ## Dependencies
 
 - [WordPress](https://wordpress.org/)
-- [ACF (Advanced Custom Fields)](https://www.advancedcustomfields.com/)
+- [ACF (Advanced Custom Fields) PRO](https://www.advancedcustomfields.com/)
 
 ## Half-dependencies
 
