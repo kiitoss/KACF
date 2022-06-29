@@ -1,8 +1,6 @@
 <?php
 
-header("content-type:text/css");
-
-require dirname(__FILE__) . '/../../../lib/less/lessc.inc.php';
+require_once dirname(__FILE__) . '/../../../lib/less/lessc.inc.php';
 
 $less = new lessc;
 

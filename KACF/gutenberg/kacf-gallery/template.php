@@ -10,6 +10,9 @@
 ?>
 
 <?php
+require_once dirname(__FILE__) . '/../../lib/less/lessc.inc.php';
+$gallery_less = new lessc;
+
 // get the current page id
 $current_page_id = get_the_ID();
 
@@ -71,16 +74,15 @@ foreach ($pages as $page) {
         // retrieve the ID (MUST BE the first keyword according to KACF logic)
         $reference = $keywords[0];
 
-        require_once(dirname(__FILE__) . '/../../lib/less/lessc.inc.php');
-        $less = new lessc;
-        $less_content = '.kacf-filter-' . $reference . ' {' . file_get_contents(dirname(__FILE__) . '/../' . explode('acf/', $block_name)[1] . '/less/style.less') . '}';
+        // get the block css src
+        $css_src = get_template_directory() . explode(get_template_directory_uri(), $registered_blocks[$block_name]['enqueue_style'])[1];
 
         $gallery_blocks[] = array(
             'name' => $block_name,
             'reference' => $reference,
             'classes' => $classes,
             'content' => $acf_block,
-            'css' => $less->compile($less_content),
+            'css' => $css_src,
         );
     }
 }
@@ -99,7 +101,15 @@ foreach ($pages as $page) {
                 <?php echo render_block($gallery_block['content']); ?>
                 <?php wp_dequeue_style('block-' . acf_slugify($gallery_block['name'])); ?>
                 <style>
-                    <?php echo $gallery_block['css'] ?>
+                    <?php
+                    ob_start();
+                    include_once($gallery_block['css']);
+                    $css_content = ob_get_contents();
+                    ob_end_clean();
+
+                    $css_wrapped = '.kacf-filter-' . explode('acf/', $gallery_block['name'])[1] . '{' . $css_content . '}';
+                    echo $gallery_less->compile($css_wrapped);
+                    ?>
                 </style>
 
             </div>
