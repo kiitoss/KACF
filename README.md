@@ -68,7 +68,12 @@ new kacf(
 - Add a title (and other information if necessary) in the comments of the **/gutenberg/_myblock_/template.php** file header.
 - Export the PHP block code creation (available in the ACF administration interface).
 - Import it in the file **/gutenberg/_myblock_/acf/acf.php**.
-- It's done
+- It's done.
+
+## Block duplication
+
+- Copy the **/gutenberg/_myblock_** folder and from another site and past it into your own **/gutenber/** folder.
+- It's done.
 
 ## Insert new block in gallery
 
