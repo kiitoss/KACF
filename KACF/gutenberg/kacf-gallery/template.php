@@ -24,6 +24,8 @@ $registered_blocks = acf_get_block_types();
 
 $gallery_blocks = array();
 
+
+
 // loop through the pages
 foreach ($pages as $page) {
     // get the looped page ID
@@ -69,11 +71,16 @@ foreach ($pages as $page) {
         // retrieve the ID (MUST BE the first keyword according to KACF logic)
         $reference = $keywords[0];
 
+        require_once(dirname(__FILE__) . '/../../lib/less/lessc.inc.php');
+        $less = new lessc;
+        $less_content = '.kacf-filter-' . $reference . ' {' . file_get_contents(dirname(__FILE__) . '/../' . explode('acf/', $block_name)[1] . '/less/style.less') . '}';
+
         $gallery_blocks[] = array(
             'name' => $block_name,
             'reference' => $reference,
             'classes' => $classes,
             'content' => $acf_block,
+            'css' => $less->compile($less_content),
         );
     }
 }
@@ -90,6 +97,11 @@ foreach ($pages as $page) {
         <?php foreach ($gallery_blocks as $gallery_block) : ?>
             <div data-reference="<?php echo $gallery_block['reference'] ?>" class="<?php echo $gallery_block['classes'] ?>">
                 <?php echo render_block($gallery_block['content']); ?>
+                <?php wp_dequeue_style('block-' . acf_slugify($gallery_block['name'])); ?>
+                <style>
+                    <?php echo $gallery_block['css'] ?>
+                </style>
+
             </div>
         <?php endforeach; ?>
     </div>
