@@ -12,7 +12,11 @@ The other elements are examples and the basics of the theme.
 - [WordPress](https://wordpress.org/)
 - [ACF (Advanced Custom Fields)](https://www.advancedcustomfields.com/)
 
-## Recommended plugins
+## Half-dependencies
+
+- [LESS Compiler](https://lesscss.org/) or [SASS Compiler](https://sass-lang.com/) is required to use the KACF Gallery block (LESS is already included in this directory).
+
+## Recommended Plugins
 
 - [ACF Extended](https://www.acf-extended.com/) : This plugin allows you to see the local ACF fields and insert them directly into your database
 
@@ -70,3 +74,7 @@ new kacf(
 
 - Once your block has been added to the **/gutenberg/** folder, you can add it to any page on your website.
 - Choose a page for your gallery, and add the **kacf-gallery** block to the page to automatically retrieve all blocks from all pages.
+
+## Deeper
+
+To avoid conflicts between block styles inserted by the KACF Gallery block, each CSS file is taken out of the queue ([`wp_dequeue_style()`](https://developer.wordpress.org/reference/functions/wp_dequeue_style/)), curled, wrapped in a specific single class and embedded in the HTML code between `<style>` tags.
