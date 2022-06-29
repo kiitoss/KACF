@@ -10,8 +10,9 @@
 ?>
 
 <?php
+
 require_once dirname(__FILE__) . '/../../lib/less/lessc.inc.php';
-$gallery_less = new lessc;
+$less = new lessc;
 
 // get the current page id
 $current_page_id = get_the_ID();
@@ -75,14 +76,21 @@ foreach ($pages as $page) {
         $reference = $keywords[0];
 
         // get the block css src
-        $css_src = get_template_directory() . explode(get_template_directory_uri(), $registered_blocks[$block_name]['enqueue_style'])[1];
+        $css_src = $registered_blocks[$block_name]['enqueue_style'];
+        // get the block css content
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $css_src);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $css = curl_exec($ch);
+        curl_close($ch);
 
         $gallery_blocks[] = array(
             'name' => $block_name,
             'reference' => $reference,
             'classes' => $classes,
             'content' => $acf_block,
-            'css' => $css_src,
+            'css' => $css,
         );
     }
 }
@@ -98,20 +106,17 @@ foreach ($pages as $page) {
     <div class="kacf-block-gallery">
         <?php foreach ($gallery_blocks as $gallery_block) : ?>
             <div data-reference="<?php echo $gallery_block['reference'] ?>" class="<?php echo $gallery_block['classes'] ?>">
+                <!-- render the block -->
                 <?php echo render_block($gallery_block['content']); ?>
+                <!-- remove the old style -->
                 <?php wp_dequeue_style('block-' . acf_slugify($gallery_block['name'])); ?>
+                <!-- insert the new scoped style -->
                 <style>
                     <?php
-                    ob_start();
-                    include_once($gallery_block['css']);
-                    $css_content = ob_get_contents();
-                    ob_end_clean();
-
-                    $css_wrapped = '.kacf-filter-' . explode('acf/', $gallery_block['name'])[1] . '{' . $css_content . '}';
-                    echo $gallery_less->compile($css_wrapped);
+                    $scoped_css = '.kacf-filter-' . explode('acf/', $gallery_block['name'])[1] . '{' . $gallery_block['css'] . '}';
+                    echo $less->compile($scoped_css);
                     ?>
                 </style>
-
             </div>
         <?php endforeach; ?>
     </div>
