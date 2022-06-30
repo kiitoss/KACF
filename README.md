@@ -78,4 +78,4 @@ new kacf(
 
 ## Deeper
 
-To avoid conflicts between block styles inserted by the KACF Gallery block, each block is load using the shadow DOM.
+To avoid conflicts between blocks inserted by the KACF Gallery block, each block style and script is loaded into the shadow DOM.
