@@ -2,23 +2,19 @@
 
 Repository core:
 
-- **/lib/kacf/**
-- **/gutenberg/kacf-gallery/**
+-   **/lib/kacf/**
+-   **/gutenberg/kacf-gallery/**
 
 The other elements are examples and the basics of the theme.
 
 ## Dependencies
 
-- [WordPress](https://wordpress.org/)
-- [ACF (Advanced Custom Fields) PRO](https://www.advancedcustomfields.com/)
-
-## Half-dependencies
-
-- [LESS Compiler](https://lesscss.org/) or [SASS Compiler](https://sass-lang.com/) is required to use the KACF Gallery block (LESS is already included in this directory).
+-   [WordPress](https://wordpress.org/)
+-   [ACF (Advanced Custom Fields) PRO](https://www.advancedcustomfields.com/)
 
 ## Recommended Plugins
 
-- [ACF Extended](https://www.acf-extended.com/) : This plugin allows you to see the local ACF fields and insert them directly into your database
+-   [ACF Extended](https://www.acf-extended.com/) : This plugin allows you to see the local ACF fields and insert them directly into your database
 
 ## KACF : What and why ?
 
@@ -32,14 +28,14 @@ To help you manage all your blocks, you will find the **kacf-gallery** block. Th
 
 ### KACF + KACF Gallery
 
-- Clone or download the directory
-- Customize it by modifying **/screenshot.png**, **/style.css**.
+-   Clone or download the directory
+-   Customize it by modifying **/screenshot.png**, **/style.css**.
 
 ### KACF only
 
-- Download the folder **/lib/kacf/** and insert it in your lib folder.
-- Create the folder **/gutenberg/** in your theme directory.
-- Add the lines below in the **functions.php** file:
+-   Download the folder **/lib/kacf/** and insert it in your lib folder.
+-   Create the folder **/gutenberg/** in your theme directory.
+-   Add the lines below in the **functions.php** file:
 
 ```php
 require dirname(__FILE__) . '/lib/kacf/kacf.inc.php';
@@ -64,22 +60,22 @@ new kacf(
 
 ## Block creation
 
-- Copy the **/gutenberg/\_base** folder and rename it as follows: **/gutenberg/_myblock_/**.
-- Add a title (and other information if necessary) in the comments of the **/gutenberg/_myblock_/template.php** file header.
-- Export the PHP block code creation (available in the ACF administration interface).
-- Import it in the file **/gutenberg/_myblock_/acf/acf.php**.
-- It's done.
+-   Copy the **/gutenberg/\_base** folder and rename it as follows: **/gutenberg/_myblock_/**.
+-   Add a title (and other information if necessary) in the comments of the **/gutenberg/_myblock_/template.php** file header.
+-   Export the PHP block code creation (available in the ACF administration interface).
+-   Import it in the file **/gutenberg/_myblock_/acf/acf.php**.
+-   It's done.
 
 ## Block duplication
 
-- Copy the **/gutenberg/_myblock_** folder and from another site and past it into your own **/gutenber/** folder.
-- It's done.
+-   Copy the **/gutenberg/_myblock_** folder and from another site and past it into your own **/gutenber/** folder.
+-   It's done.
 
 ## Insert new block in gallery
 
-- Once your block has been added to the **/gutenberg/** folder, you can add it to any page on your website.
-- Choose a page for your gallery, and add the **kacf-gallery** block to the page to automatically retrieve all blocks from all pages.
+-   Once your block has been added to the **/gutenberg/** folder, you can add it to any page on your website.
+-   Choose a page for your gallery, and add the **kacf-gallery** block to the page to automatically retrieve all blocks from all pages.
 
 ## Deeper
 
-To avoid conflicts between block styles inserted by the KACF Gallery block, each CSS file is taken out of the queue ([`wp_dequeue_style()`](https://developer.wordpress.org/reference/functions/wp_dequeue_style/)), curled, wrapped in a specific single class and embedded in the HTML code between `<style>` tags.
+To avoid conflicts between block styles inserted by the KACF Gallery block, each block is load using the shadow DOM.
