@@ -1,12 +1,5 @@
 # KACF
 
-Repository core:
-
--   **/lib/kacf/**
--   **/gutenberg/kacf-gallery/**
-
-The other elements are examples and the basics of the theme.
-
 ## Dependencies
 
 -   [WordPress](https://wordpress.org/)
@@ -21,8 +14,6 @@ The other elements are examples and the basics of the theme.
 The goal of KACF is to simplify the creation and duplication of blocks in multiple websites.
 
 Once your block has been created in one site, you can reuse it in another site by simply copying and pasting the block folder into your new theme.
-
-To help you manage all your blocks, you will find the **kacf-gallery** block. This block retrieves all blocks from all pages of your website and adds them all in one section, where you can search for blocks with keywords and see them live.
 
 ## Installation
 
@@ -70,12 +61,3 @@ new kacf(
 
 -   Copy the **/gutenberg/_myblock_** folder and from another site and past it into your own **/gutenber/** folder.
 -   It's done.
-
-## Insert new block in gallery
-
--   Once your block has been added to the **/gutenberg/** folder, you can add it to any page on your website.
--   Choose a page for your gallery, and add the **kacf-gallery** block to the page to automatically retrieve all blocks from all pages.
-
-## Deeper
-
-To avoid conflicts between blocks inserted by the KACF Gallery block, each block style and script is loaded into the shadow DOM.
