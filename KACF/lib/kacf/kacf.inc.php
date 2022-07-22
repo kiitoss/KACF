@@ -7,11 +7,15 @@ class kacf
     private $tpl = '';
     private $tpluri = '';
     private $relative_paths = array();
+    private $field_groups = array();
     private static $instance;
+
     public function __construct($gutpath = '/gutenberg/', $add_hooks = true, $relative_paths = array('php' => 'template.php', 'css' => 'less/index.php', 'js' => 'js/script.js', 'acf' => 'acf/acf.php'), $unregister_default_blocks = true)
     {
         // check the environment validity
         if (!$this->is_environmment_valid()) return;
+
+        $this->set_field_groups();
 
         // define gutenberg repository paths
         $this->tpl = get_template_directory() . $gutpath;
@@ -32,6 +36,20 @@ class kacf
 
         // set the KACF instance
         kacf::$instance = $this;
+    }
+
+    /**
+     * Map acf field groups
+     */
+    private function set_field_groups()
+    {
+        // get acf field groups
+        $field_groups = acf_get_field_groups();
+
+        // map field groups
+        foreach ($field_groups as $field_group) {
+            $this->field_groups[$field_group['key']] = $field_group;
+        }
     }
 
     /**
@@ -164,8 +182,17 @@ class kacf
 
         // load the ACF field generator if exists
         $acf_php_file_path = $this->tpl . $relative_path . '/' . $this->relative_paths['acf'];
+
+        // check if acf php file not empty
         if (file_exists($acf_php_file_path) && filesize($acf_php_file_path)) {
-            include $acf_php_file_path;
+            // store in $matches the field key read in the PHP file
+            preg_match('/group_[a-z0-9A-Z]*/', file_get_contents($acf_php_file_path), $matches, PREG_UNMATCHED_AS_NULL);
+
+            // check if field group already exists
+            if (!empty($matches[0][0]) && !array_key_exists($matches[0], $this->field_groups)) {
+                // include file if field group absent from database
+                include $acf_php_file_path;
+            }
         }
 
         // allow user to use this new block
@@ -199,7 +226,7 @@ class kacf
             $relative_path = implode('', explode($this->tpl, $dir));
 
             // generate the name of the block with the folder name
-            $data['name'] = preg_replace('/[^a-z0-9\-\_]/', '', str_replace(' ', '-', strtolower($relative_path)));
+            $data['name'] = preg_replace('/[^a-z1-9][a-z0-9\-\_]/', '', str_replace(' ', '-', strtolower($relative_path)));
 
             // continue if no block title
             if (!$data['title']) continue;
