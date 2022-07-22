@@ -226,7 +226,7 @@ class kacf
             $relative_path = implode('', explode($this->tpl, $dir));
 
             // generate the name of the block with the folder name
-            $data['name'] = preg_replace('/[^a-z1-9][a-z0-9\-\_]/', '', str_replace(' ', '-', strtolower($relative_path)));
+            $data['name'] = preg_replace('/[^a-z0-9]/', '', str_replace(' ', '-', strtolower($relative_path)));
 
             // continue if no block title
             if (!$data['title']) continue;
