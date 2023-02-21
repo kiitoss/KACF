@@ -17,7 +17,7 @@ Once your block has been created in one site, you can reuse it in another site b
 
 ## Installation
 
-### KACF + KACF Gallery
+### KACF full theme
 
 -   Clone or download the directory
 -   Customize it by modifying **/screenshot.png**, **/style.css**.
